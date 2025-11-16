@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>[TITLE GOES HERE]</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <main>
+    <header>
+      <div class="eyebrow">Entry · [DATE OR TAG]</div>
+      <h1><span class="accent">[Your</span> title here]</h1>
+      <div class="subtitle">
+        <!-- Optional: one–sentence summary or leave this blank -->
+      </div>
+    </header>
+
+    <section>
+      <!-- Your essay paragraphs go here. Example structure: -->
+
+      <p class="lead">
+        <!-- Opening paragraph -->
+      </p>
+
+      <p>
+        <!-- Next paragraph -->
+      </p>
+
+      <!-- Add as many <p>...</p> blocks as you want -->
+
+      <hr>
+
+      <p class="small-muted">
+        <!-- Optional: closing note, date, or version -->
+      </p>
+    </section>
+  </main>
+</body>
+</html>
