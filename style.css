@@ -6,6 +6,37 @@
   --accent: #f97316;
 }
 
+/* Visually hidden skip-link until keyboard focus */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.skip-link:focus,
+.skip-link:focus-visible {
+  left: 1rem;
+  top: 1rem;
+  width: auto;
+  height: auto;
+  padding: 0.4rem 0.6rem;
+  background: var(--bg-alt);
+  color: var(--fg);
+  border-radius: 8px;
+  text-decoration: none;
+  z-index: 1000;
+  box-shadow: 0 12px 36px rgba(0,0,0,0.6);
+  clip: auto;
+  white-space: normal;
+}
+
+/* ...existing stylesheet content below... */
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -213,22 +244,4 @@ hr {
   }
 }
 
-
-/* GITHUB COPILOT INSTRUCTION:
-Create CSS for a dark, elegant layout with a left sidebar and a main content area.
-
-Requirements:
-- Body background stays dark.
-- Add a .layout class that uses flexbox to place a sidebar on the left and the main content on the right. Max width around 960px.
-- Add .sidebar, .sidebar-title, and .sidebar-nav styles.
-- Sidebar:
-  - Slightly lighter dark background than page background.
-  - Rounded corners.
-  - Vertical list of text links.
-  - Links should be subtle by default, lighter on hover.
-  - .sidebar-nav a.active should be highlighted with an accent color already defined (var(--accent)).
-- On small screens (max-width: 768px), stack layout vertically:
-  - Sidebar goes above main content.
-  - Sidebar nav becomes horizontal scrollable pill links.
-
-Use the same design language as the rest of this file: soft shadows, rounded corners, system font. Do NOT change existing styles; only add new classes. */
+/* End of stylesheet */
