@@ -8,7 +8,6 @@
   <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-  <a class="skip-link" href="#content">Skip to content</a>
   <div class="layout">
     <aside class="sidebar" role="navigation" aria-label="Primary">
       <div class="sidebar-title">monsterwithinyou</div>
@@ -30,7 +29,7 @@
 
       <section>
         <p>
-          You were told that the monster lives out there — in systems, nations, algorithms, strangers. It is more convenient that way. If the monster is always somewhere else, you never have to look t[...]
+          You were told that the monster lives out there — in systems, nations, algorithms, strangers. It is more convenient that way. If the monster is always somewhere else, you never have to [...]  
         </p>
         <p>
           This place exists to remove that convenience.
@@ -38,7 +37,7 @@
           <strong>the most dangerous thing in your world might be the part of you that you refuse to see.</strong>
         </p>
         <p>
-          I write under no face and no name. Not because there is something to hide, but because there is nothing to sell. These letters are not self-help, not doctrine, not rebellion for its own sake. [...]
+          I write under no face and no name. Not because there is something to hide, but because there is nothing to sell. These letters are not self-help, not doctrine, not rebellion for its own [...]  
         </p>
 
         <div class="question">
@@ -47,7 +46,7 @@
         </div>
 
         <p>
-          Over time, you will find essays here — long, slow, and precise — and responses to anonymous letters from people who are willing to stare at their own shadow a little longer than is comfort[...]
+          Over time, you will find essays here — long, slow, and precise — and responses to anonymous letters from people who are willing to stare at their own shadow a little longer than is comfort[...]  
         </p>
         <p>
           Read. Disagree. Write back. But whatever you do, do not pretend that you walked away unchanged.
@@ -105,8 +104,8 @@
         });
 
       const dayFiles = items
-        .filter(it => it.type === 'file' && /^day\\d+(?:\\.html|\\.md)?$/i.test(it.name))
-        .map(it => it.name.replace(/\\.html|\\.md$/i, ''))
+        .filter(it => it.type === 'file' && /^day\\d+(?:\.html|\.md)?$/i.test(it.name))
+        .map(it => it.name.replace(/\.html|\.md$/i, ''))
         .sort((a,b) => Number((a.match(/\\d+/)||[0])[0]) - Number((b.match(/\\d+/)||[0])[0]));
 
       if (dayDirs.length > 0) {
