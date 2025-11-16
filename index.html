@@ -105,8 +105,8 @@
         });
 
       const dayFiles = items
-        .filter(it => it.type === 'file' && /^day\\d+(?:\.html|\.md)?$/i.test(it.name))
-        .map(it => it.name.replace(/\.html|\.md$/i, ''))
+        .filter(it => it.type === 'file' && /^day\\d+(?:\\.html|\\.md)?$/i.test(it.name))
+        .map(it => it.name.replace(/\\.html|\\.md$/i, ''))
         .sort((a,b) => Number((a.match(/\\d+/)||[0])[0]) - Number((b.match(/\\d+/)||[0])[0]));
 
       if (dayDirs.length > 0) {
