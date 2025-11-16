@@ -7,17 +7,27 @@
   <link rel="stylesheet" href="/style.css">
 </head>
 <body>
+  <!-- GITHUB COPILOT INSTRUCTION:
+Refactor this page into a 2-column layout with a left sidebar and the existing content as the main area.
+
+Requirements:
+- Assume shared styles are in /style.css and already include .layout and .sidebar classes.
+- Wrap the whole page body in:
   <div class="layout">
-    <aside class="sidebar">
-      <div class="sidebar-title">monsterwithinyou</div>
-      <nav class="sidebar-nav">
-        <a href="/" class="active">homepage</a>
-        <a href="/day1/">day 1</a>
-        <a href="/day2/">day 2</a>
-        <!-- add more days later like this -->
-        <!-- <a href="/day3/">day 3</a> -->
-      </nav>
-    </aside>
+    <aside class="sidebar">...</aside>
+    <main>...</main>
+  </div>
+- Inside <aside class="sidebar">, create:
+  - A small label div with class="sidebar-title" and text "monsterwithinyou".
+  - A <nav class="sidebar-nav"> with links:
+      <a href="/" class="active">homepage</a>
+      <a href="/day1/">day 1</a>
+      <a href="/day2/">day 2</a>
+    (I will manually add day3, day4, etc. later.)
+- Move the existing header/section/footer content into the <main> element WITHOUT changing any text content or structure.
+- Do not change the <head> section. Keep <link rel="stylesheet" href="/style.css"> as it is.
+- Only modify the structure inside <body>. -->
+
   <main>
     <header>
       <div class="eyebrow">A quiet experiment in radical honesty</div>
