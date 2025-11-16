@@ -1,62 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Monster, within, you — a quiet experiment in radical honesty. Essays and anonymous letters exploring the parts of ourselves we avoid.">
   <title>Monster, within, you</title>
   <link rel="stylesheet" href="/style.css">
 </head>
 <body>
+  <a class="skip-link" href="#content">Skip to content</a>
   <div class="layout">
-    <aside class="sidebar">
+    <aside class="sidebar" role="navigation" aria-label="Primary">
       <div class="sidebar-title">monsterwithinyou</div>
       <nav class="sidebar-nav" id="sidebar-nav" aria-label="Primary navigation">
         <!-- Navigation is populated dynamically from the repository contents. -->
         <!-- Falls back to a small static list if the GitHub API cannot be reached. -->
       </nav>
     </aside>
-  <main id="content">
-    <header>
-      <div class="eyebrow">A quiet experiment in radical honesty</div>
-      <h1>
-        <span class="accent">Monster,</span> within, you
-      </h1>
-      <div class="subtitle">
-        A faceless philosophical project. No brand. No guru. Only the part of you that you spend your life avoiding.
-      </div>
-    </header>
+    <main id="content">
+      <header>
+        <div class="eyebrow">A quiet experiment in radical honesty</div>
+        <h1>
+          <span class="accent">Monster,</span> within, you
+        </h1>
+        <div class="subtitle">
+          A faceless philosophical project. No brand. No guru. Only the part of you that you spend your life avoiding.
+        </div>
+      </header>
 
-    <section>
-      <p>
-        You were told that the monster lives out there — in systems, nations, algorithms, strangers. It is more convenient that way. If the monster is always somewhere else, you never have to look t[...]
-      </p>
-      <p>
-        This place exists to remove that convenience.
-        Here, the assumption is simple and uncomfortable:
-        <strong>the most dangerous thing in your world might be the part of you that you refuse to see.</strong>
-      </p>
-      <p>
-        I write under no face and no name. Not because there is something to hide, but because there is nothing to sell. These letters are not self-help, not doctrine, not rebellion for its own sake. [...]
-      </p>
+      <section>
+        <p>
+          You were told that the monster lives out there — in systems, nations, algorithms, strangers. It is more convenient that way. If the monster is always somewhere else, you never have to look t[...]
+        </p>
+        <p>
+          This place exists to remove that convenience.
+          Here, the assumption is simple and uncomfortable:
+          <strong>the most dangerous thing in your world might be the part of you that you refuse to see.</strong>
+        </p>
+        <p>
+          I write under no face and no name. Not because there is something to hide, but because there is nothing to sell. These letters are not self-help, not doctrine, not rebellion for its own sake. [...]
+        </p>
 
-      <div class="question">
-        The only real question of this project is:<br>
-        <strong>When you say “monster”, what exactly are you pointing at inside yourself?</strong>
-      </div>
+        <div class="question">
+          The only real question of this project is:<br>
+          <strong>When you say “monster”, what exactly are you pointing at inside yourself?</strong>
+        </div>
 
-      <p>
-        Over time, you will find essays here — long, slow, and precise — and responses to anonymous letters from people who are willing to stare at their own shadow a little longer than is comfort[...]
-      </p>
-      <p>
-        Read. Disagree. Write back. But whatever you do, do not pretend that you walked away unchanged.
-      </p>
-    </section>
+        <p>
+          Over time, you will find essays here — long, slow, and precise — and responses to anonymous letters from people who are willing to stare at their own shadow a little longer than is comfort[...]
+        </p>
+        <p>
+          Read. Disagree. Write back. But whatever you do, do not pretend that you walked away unchanged.
+        </p>
+      </section>
 
-    <footer>
-      <div class="pill">You are not being watched here. Only reflected.</div>
-      <div>First draft of the experiment · v0.1</div>
-    </footer>
-  </main>
+      <footer>
+        <div class="pill">You are not being watched here. Only reflected.</div>
+        <div>First draft of the experiment · v0.1</div>
+      </footer>
+    </main>
+  </div>
 
   <script>
   (async function(){
@@ -81,7 +84,6 @@
     }
 
     function fallbackNav(){
-      // Minimal, safe fallback: show homepage and day1 (if you already have it)
       addHome();
       sidebar.appendChild(createLink('/day1/', 'day 1', location.pathname.startsWith('/day1')));
     }
@@ -91,10 +93,8 @@
       if (!res.ok) throw new Error('GitHub API error: ' + res.status);
       const items = await res.json();
 
-      // Add homepage first
       addHome();
 
-      // Find day folders (day1, day2, ...) in root
       const dayDirs = items
         .filter(it => it.type === 'dir' && /^day\\d+$/i.test(it.name))
         .map(it => it.name)
@@ -104,10 +104,9 @@
           return na - nb;
         });
 
-      // If no day directories, also check for files like day1.html or day1.md
       const dayFiles = items
-        .filter(it => it.type === 'file' && /^day\\d+(?:\\.html|\\.md)?$/i.test(it.name))
-        .map(it => it.name.replace(/\\.html|\\.md$/i, ''))
+        .filter(it => it.type === 'file' && /^day\\d+(?:\.html|\.md)?$/i.test(it.name))
+        .map(it => it.name.replace(/\.html|\.md$/i, ''))
         .sort((a,b) => Number((a.match(/\\d+/)||[0])[0]) - Number((b.match(/\\d+/)||[0])[0]));
 
       if (dayDirs.length > 0) {
@@ -124,8 +123,7 @@
         });
       }
 
-      // Ensure day1 appears at least once (so sidebar isn't only homepage)
-      const hasDay1 = Array.from(sidebar.querySelectorAll('a')).some(a => /day\\s*1/i.test(a.textContent));
+      const hasDay1 = Array.from(sidebar.querySelectorAll('a')).some(a => /day\s*1/i.test(a.textContent));
       if (!hasDay1) {
         sidebar.appendChild(createLink('/day1/', 'day 1', location.pathname.startsWith('/day1')));
       }
