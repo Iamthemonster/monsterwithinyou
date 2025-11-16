@@ -1,69 +1,123 @@
-<!-- GITHUB COPILOT INSTRUCTION:
-Create a new HTML page that uses the same layout and styles as the homepage of this site.
-
-Requirements:
-- Use <!DOCTYPE html>, <html>, <head>, <body>.
-- In <head>:
-  - <meta charset="UTF-8">
-  - <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  - <title>Day 1 · Monster, within, you</title>
-  - <link rel="stylesheet" href="/style.css">
-- In <body>, reuse the same layout structure:
-  <div class="layout">
-    <aside class="sidebar">...</aside>
-    <main>...</main>
-  </div>
-- Sidebar:
-  - Same content as homepage, but set the "day 1" link as active:
-      <a href="/">homepage</a>
-      <a href="/day1/" class="active">day 1</a>
-      <a href="/day2/">day 2</a>
-- In <main>:
-  - Create a <header> with:
-      eyebrow "Day 1"
-      h1 with a placeholder title like "Day 1"
-      optional subtitle div (empty is okay; I will fill it later).
-  - Create a <section> with a few <p> paragraphs as placeholders. I will replace the text with my own essay later.
-  - Create a <footer> similar to the homepage footer, but mention "Day 1 entry".
-Do not include any inline <style>. All styling must come from /style.css. -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Are you the Monster?</title>
+  <title>Day 1 · Monster, within, you</title>
   <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-  <main>
-    <header>
-      <div class="eyebrow">Entry · [DATE OR TAG]</div>
-      <h1><span class="accent">[Your</span> title here]</h1>
-      <div class="subtitle">
-        <!-- Optional: one–sentence summary or leave this blank -->
-      </div>
-    </header>
+  <div class="layout">
+    <aside class="sidebar" role="navigation" aria-label="Primary">
+      <div class="sidebar-title">monsterwithinyou</div>
+      <nav class="sidebar-nav" id="sidebar-nav" aria-label="Primary navigation">
+        <!-- Populated by the same script as the homepage -->
+      </nav>
+    </aside>
 
-    <section>
-      <!-- Your essay paragraphs go here. Example structure: -->
-      this is only a test!
+    <main id="content">
+      <header>
+        <div class="eyebrow">Day 1</div>
+        <h1>Day 1</h1>
+        <div class="subtitle"></div>
+      </header>
 
-      <p class="lead">
-        <!-- Opening paragraph -->
-      </p>
+      <section>
+        <p class="lead">This is a placeholder for Day 1. Replace with your essay.</p>
 
-      <p>
-        <!-- Next paragraph -->
-      </p>
+        <p>
+          Paragraph one. Replace this text with your essay content when ready.
+        </p>
 
-      <!-- Add as many <p>...</p> blocks as you want -->
+        <p>
+          Paragraph two. Add as many paragraphs as you like.
+        </p>
 
-      <hr>
+        <hr>
 
-      <p class="small-muted">
-        <!-- Optional: closing note, date, or version -->
-      </p>
-    </section>
-  </main>
+        <p class="small-muted">Day 1 entry · first draft</p>
+      </section>
+
+      <footer>
+        <div class="pill">You are not being watched here. Only reflected.</div>
+        <div>Day 1 entry · v0.1</div>
+      </footer>
+    </main>
+  </div>
+
+  <script>
+  // Same repo-reading script used on the homepage so the sidebar appears here too
+  (async function(){
+    const owner = 'Iamthemonster';
+    const repo = 'monsterwithinyou';
+    const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents`;
+    const sidebar = document.getElementById('sidebar-nav');
+
+    function createLink(href, label, isActive){
+      const a = document.createElement('a');
+      a.href = href;
+      a.textContent = label;
+      if (isActive) {
+        a.classList.add('active');
+        a.setAttribute('aria-current','page');
+      }
+      return a;
+    }
+
+    function addHome(){
+      sidebar.appendChild(createLink('/', 'homepage', location.pathname === '/' || location.pathname === '/index.html'));
+    }
+
+    function fallbackNav(){
+      addHome();
+      sidebar.appendChild(createLink('/day1/', 'day 1', location.pathname.startsWith('/day1')));
+    }
+
+    try {
+      const res = await fetch(apiUrl, { headers: { 'Accept': 'application/vnd.github.v3+json' } });
+      if (!res.ok) throw new Error('GitHub API error: ' + res.status);
+      const items = await res.json();
+
+      addHome();
+
+      const dayDirs = items
+        .filter(it => it.type === 'dir' && /^day\\d+$/i.test(it.name))
+        .map(it => it.name)
+        .sort((a,b) => {
+          const na = Number((a.match(/\\d+/) || [0])[0] || 0);
+          const nb = Number((b.match(/\\d+/) || [0])[0] || 0);
+          return na - nb;
+        });
+
+      const dayFiles = items
+        .filter(it => it.type === 'file' && /^day\\d+(?:\\.html|\\.md)?$/i.test(it.name))
+        .map(it => it.name.replace(/\\.html|\\.md$/i, ''))
+        .sort((a,b) => Number((a.match(/\\d+/)||[0])[0]) - Number((b.match(/\\d+/)||[0])[0]));
+
+      if (dayDirs.length > 0) {
+        dayDirs.forEach(dir => {
+          const href = `/${dir}/`;
+          const label = dir.replace(/^day(\\d+)$/i, 'day $1');
+          sidebar.appendChild(createLink(href, label, location.pathname.startsWith(`/${dir}/`) || location.pathname.startsWith(`/${dir}`)));
+        });
+      } else if (dayFiles.length > 0) {
+        dayFiles.forEach(name => {
+          const href = `/${name}/`;
+          const label = name.replace(/^day(\\d+)$/i, 'day $1');
+          sidebar.appendChild(createLink(href, label, location.pathname.startsWith(`/${name}/`) || location.pathname.startsWith(`/${name}`)));
+        });
+      }
+
+      const hasDay1 = Array.from(sidebar.querySelectorAll('a')).some(a => /day\\s*1/i.test(a.textContent));
+      if (!hasDay1) {
+        sidebar.appendChild(createLink('/day1/', 'day 1', location.pathname.startsWith('/day1')));
+      }
+    } catch (err) {
+      console.error('Could not build sidebar navigation from GitHub API, using fallback.', err);
+      sidebar.innerHTML = '';
+      fallbackNav();
+    }
+  })();
+  </script>
 </body>
 </html>
