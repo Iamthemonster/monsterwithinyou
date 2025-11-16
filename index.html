@@ -8,6 +8,10 @@
   <link rel="stylesheet" href="/style.css">
 </head>
 <body>
+  <!-- Accessibility: skip link is present but visually hidden by default.
+       It becomes visible when focused (keyboard users). -->
+  <a class="skip-link" href="#content">Skip to content</a>
+
   <div class="layout">
     <aside class="sidebar" role="navigation" aria-label="Primary">
       <div class="sidebar-title">monsterwithinyou</div>
@@ -104,8 +108,8 @@
         });
 
       const dayFiles = items
-        .filter(it => it.type === 'file' && /^day\\d+(?:\.html|\.md)?$/i.test(it.name))
-        .map(it => it.name.replace(/\.html|\.md$/i, ''))
+        .filter(it => it.type === 'file' && /^day\\d+(?:\\.html|\\.md)?$/i.test(it.name))
+        .map(it => it.name.replace(/\\.html|\\.md$/i, ''))
         .sort((a,b) => Number((a.match(/\\d+/)||[0])[0]) - Number((b.match(/\\d+/)||[0])[0]));
 
       if (dayDirs.length > 0) {
@@ -122,7 +126,7 @@
         });
       }
 
-      const hasDay1 = Array.from(sidebar.querySelectorAll('a')).some(a => /day\s*1/i.test(a.textContent));
+      const hasDay1 = Array.from(sidebar.querySelectorAll('a')).some(a => /day\\s*1/i.test(a.textContent));
       if (!hasDay1) {
         sidebar.appendChild(createLink('/day1/', 'day 1', location.pathname.startsWith('/day1')));
       }
